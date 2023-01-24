@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Vendas
+from .models import Vendas, Produto
 from django.http import JsonResponse
 from django.db.models import Sum
 from datetime import datetime
@@ -35,3 +35,22 @@ def relatorio_faturamento(request):
     data_json = {'data': data[::-1], 'labels': labels[::-1]}
 
     return JsonResponse(data_json)
+
+def relatorio_produtos(request):
+    produtos = Produto.objects.all()
+    label = []
+    data = []
+    for produto in produtos:
+        vendas = Vendas.objects.filter(nome_produto=produto).aggregate(Sum('total'))
+        if not vendas['total__sum']:
+            vendas['total__sum'] = 0
+        label.append(produto.nome)
+        data.append(vendas['total__sum'])
+
+    x = list(zip(label, data))
+
+    x.sort(key=lambda x: x[1], reverse=True)
+    x = list(zip(*x))
+
+    return JsonResponse({'labels': x[0][:3], 'data': x[1][:3]})
+
