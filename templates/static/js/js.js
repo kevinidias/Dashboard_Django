@@ -20,3 +20,20 @@ function gera_cor(qtd=1){
     }
     return [bg_color, border_color]
 }
+
+function renderiza_despesas_mensal(){
+    const ctx = document.getElementById('despesas_mensal').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            datasets: [{
+                label:'Despesas',
+                data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                backgroundColor: "#CB1EA8",
+                borderColor: "#FFFFFF",
+                borderWidth: 0.2
+            }]
+        },
+    });
+}
