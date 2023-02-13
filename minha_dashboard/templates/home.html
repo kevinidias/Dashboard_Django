@@ -107,6 +107,7 @@
     window.onload = function(event) {
         renderiza_total_vendido('{% url "retorna_total_vendido"%}')
         renderiza_despesas_mensal()
+        renderiza_faturamento_mensal('{% url "relatorio_returamento" %}')
     }
 </script>
 {% endblock %}
