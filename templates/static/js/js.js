@@ -62,3 +62,28 @@ function renderiza_faturamento_mensal(url){
         });
     })
 }
+
+function renderiza_produtos_mais_vendidos(url){
+    fetch(url, {
+        method: 'get',
+    }).then(function(result){
+        return result.json()
+    }).then(function(data){
+
+        const ctx = document.getElementById('produtos_mais_vendidos').getContext('2d');
+        var cores_produtos_mais_vendidos = gera_cor(qtd=4)
+        const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Despesas',
+                    data: data.data,
+                    backgroundColor: cores_produtos_mais_vendidos[0],
+                    borderColor: cores_produtos_mais_vendidos[1],
+                    borderWidth: 1
+                }]
+            },
+        });
+    })
+}
