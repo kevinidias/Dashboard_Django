@@ -87,3 +87,27 @@ function renderiza_produtos_mais_vendidos(url){
         });
     })
 }
+
+function renderiza_funcionario_mes(url){
+    fetch(url, {
+        method: 'get',
+    }).then(function(result){
+        return result.json()
+    }).then(function(data){
+
+        const ctx = document.getElementById('funcionarios_do_mes').getContext('2d');
+        var cores_funcionarios_do_mes = gera_cor(qtd=3)
+        const myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.data,
+                    backgroundColor: cores_funcionarios_do_mes[0],
+                    borderColor: cores_funcionarios_do_mes[1],
+                    borderWidth: 1
+                }]
+            },
+        });
+    })
+}
