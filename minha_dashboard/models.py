@@ -24,3 +24,12 @@ class Vendas(models.Model):
 
     def __str__(self):
         return self.nome_produto.nome
+    
+
+class Despesas(models.Model):
+    nome_despesa = models.CharField(max_length=50)
+    total = models.FloatField()
+    data = models.DateField(default=datetime.datetime.now())
+
+    def __str__(self):
+        return self.nome_despesa
